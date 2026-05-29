@@ -1,0 +1,6 @@
+Q15 UPDATE rollback
+===================
+updated_rows_after_waitlist_update
+----------------------------------
+1                                 
+(1 row(s))

@@ -1,0 +1,3 @@
+Expected failure while inserting missing parent student_id=999
+error: FOREIGN KEY constraint failed
+fix: insert the parent student first or use an existing student_id.
