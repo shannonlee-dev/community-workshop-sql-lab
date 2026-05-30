@@ -1,6 +1,0 @@
-Q16 DELETE rollback
-===================
-deleted_rows_after_cancel_cleanup
----------------------------------
-2                                
-(1 row(s))

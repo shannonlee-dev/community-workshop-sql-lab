@@ -38,7 +38,8 @@ INSERT INTO courses (course_id, instructor_id, title, category, starts_on, seat_
 (7, 7, 'Tablet Drawing Studio', 'Creative', '2024-06-14', 14, 130000),
 (8, 8, 'Excel Macro Sprint', 'Productivity', '2024-06-17', 18, 100000),
 (9, 9, 'Personal Budget Clinic', 'Finance', '2024-06-19', 15, 70000),
-(10, 10, 'Home Cooking Foundations', 'Lifestyle', '2024-06-21', 10, 85000);
+(10, 10, 'Home Cooking Foundations', 'Lifestyle', '2024-06-21', 10, 85000),
+(11, 4, 'Intro to Community Gardening', 'Lifestyle', '2024-06-24', 16, 65000);
 
 INSERT INTO enrollments (enrollment_id, student_id, course_id, enrolled_on, status, discount_percent) VALUES
 (1, 1, 1, '2024-05-01', 'active', 0),

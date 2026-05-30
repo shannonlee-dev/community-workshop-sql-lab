@@ -1,9 +1,0 @@
-Q12 Above average fee
-=====================
-title                  category     fee   
----------------------  -----------  ------
-Data Dashboard Basics  Data         150000
-Tablet Drawing Studio  Creative     130000
-Python Starter Lab     Programming  120000
-HTML CSS Weekend       Web          110000
-(4 row(s))

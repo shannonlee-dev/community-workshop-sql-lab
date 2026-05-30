@@ -52,7 +52,7 @@ INNER JOIN students s ON s.student_id = e.student_id
 INNER JOIN courses c ON c.course_id = e.course_id
 ORDER BY p.amount DESC;
 
--- Q08: 모든 강의와 신청 수를 LEFT JOIN으로 확인해 신청이 없는 강의도 찾는다.
+-- Q08: 모든 강의와 신청 수를 LEFT JOIN으로 확인해 신청이 0건인 강의도 찾는다.
 SELECT c.course_id, c.title, COUNT(e.enrollment_id) AS enrollment_count
 FROM courses c
 LEFT JOIN enrollments e ON e.course_id = c.course_id
@@ -66,7 +66,7 @@ GROUP BY category
 ORDER BY avg_fee DESC;
 
 -- Q10: 강의별 결제 총액과 결제 건수를 집계한다.
-SELECT c.title, COUNT(p.payment_id) AS paid_count, SUM(p.amount) AS total_paid
+SELECT c.title, COUNT(p.payment_id) AS paid_count, COALESCE(SUM(p.amount), 0) AS total_paid
 FROM courses c
 LEFT JOIN enrollments e ON e.course_id = c.course_id
 LEFT JOIN payments p ON p.enrollment_id = e.enrollment_id

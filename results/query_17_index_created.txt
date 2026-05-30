@@ -1,6 +1,0 @@
-Q17 Index created
-=================
-name               tbl_name
------------------  --------
-idx_courses_title  courses 
-(1 row(s))

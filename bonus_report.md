@@ -32,10 +32,10 @@ VALUES (999, 999, 1, '2024-05-30', 'active', 0);
 ### 지표 1: 강의별 결제 총액
 
 ```sql
-SELECT c.title, SUM(p.amount) AS total_paid
+SELECT c.title, COALESCE(SUM(p.amount), 0) AS total_paid
 FROM courses c
-JOIN enrollments e ON e.course_id = c.course_id
-JOIN payments p ON p.enrollment_id = e.enrollment_id
+LEFT JOIN enrollments e ON e.course_id = c.course_id
+LEFT JOIN payments p ON p.enrollment_id = e.enrollment_id
 GROUP BY c.course_id, c.title
 ORDER BY total_paid DESC;
 ```
