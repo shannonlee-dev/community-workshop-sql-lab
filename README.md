@@ -1,38 +1,46 @@
-# Community Workshop Classes DB
+# Community Workshop SQL Lab
 
-## 선택한 DB와 실행 도구
+A SQLite relational data-modeling project for a community workshop program. The schema separates instructors, students, courses, enrollments, payments, and attendance so constraints and joins can be tested against realistic relationships.
 
-- DB: SQLite, 로컬 파일 기반 관계형 DB
-- 실행 도구: Python 3 표준 라이브러리 `sqlite3` 모듈을 사용하는 CLI 명령
-- 이유: 별도 서버 없이 로컬 파일 `database.db`를 만들 수 있고, 과제의 PK/FK/JOIN/GROUP BY 실습을 충분히 검증할 수 있다.
+The focus is on data integrity and explainable queries: primary keys, foreign keys, `LEFT JOIN` behavior, grouped metrics, transaction rollback examples, and reproducible query outputs are all kept in the repository.
 
-SQLite는 연결마다 FK 검사를 켜야 하므로 `schema.sql`, `seed.sql`, `queries.sql`에 `PRAGMA foreign_keys = ON;`을 명시했다. 이 줄은 SQLite 전용 문법이다.
+## Stack
 
-## 도메인
+- SQLite
+- Python standard-library `sqlite3`
+- SQL schema, seed, and query files
 
-주제는 커뮤니티 센터의 원데이 클래스 운영이다. 강사, 수강생, 강의, 수강 신청, 결제, 출석을 분리해 저장한다.
-샘플 데이터에는 신청이 0건인 강의도 포함해, `LEFT JOIN`이 매칭 없는 부모 행까지 보여주는지 확인할 수 있게 했다.
+## Domain Model
 
-주요 1:N 관계는 다음과 같다.
+- One instructor can teach many courses.
+- One student can have many enrollments.
+- One course can have many enrollments.
+- Each enrollment can connect to payment and attendance records.
 
-- 한 강사는 여러 강의를 맡는다: `courses.instructor_id -> instructors.instructor_id`
-- 한 수강생은 여러 수강 신청을 할 수 있다: `enrollments.student_id -> students.student_id`
-- 한 강의는 여러 수강 신청을 가진다: `enrollments.course_id -> courses.course_id`
-- 한 수강 신청은 결제와 출석 기록으로 이어진다: `payments.enrollment_id`, `attendance.enrollment_id`
+Key relationships:
 
-## 파일 구성
+```text
+courses.instructor_id -> instructors.instructor_id
+enrollments.student_id -> students.student_id
+enrollments.course_id -> courses.course_id
+payments.enrollment_id -> enrollments.enrollment_id
+attendance.enrollment_id -> enrollments.enrollment_id
+```
 
-- `schema.sql`: 테이블 생성, PK/FK/NOT NULL/UNIQUE 제약조건
-- `seed.sql`: 테이블별 최소 10행 이상 샘플 데이터
-- `queries.sql`: 핵심 쿼리 17개와 각 쿼리 설명
-- `results/`: 쿼리별 결과 텍스트와 FK 오류 시도 결과
-- `bonus_report.md`: 보너스 3개 항목 정리
+## Files
 
-## 실행 순서
+| File | Purpose |
+| --- | --- |
+| `schema.sql` | Table definitions and constraints |
+| `seed.sql` | Sample data |
+| `queries.sql` | 17 documented queries |
+| `results/` | Captured query outputs |
+| `bonus_report.md` | JOIN/subquery comparison, FK failure case, metrics |
+| `database.db` | Local SQLite database file |
 
-아래 명령은 현재 폴더에서 로컬 SQLite DB 파일을 재생성한다.
+## Rebuild Database
 
-```sh
+```bash
 python3 - <<'PY'
 import sqlite3
 from pathlib import Path
@@ -40,6 +48,7 @@ from pathlib import Path
 db = Path("database.db")
 if db.exists():
     db.unlink()
+
 conn = sqlite3.connect(db)
 conn.execute("PRAGMA foreign_keys = ON")
 conn.executescript(Path("schema.sql").read_text())
@@ -50,4 +59,13 @@ print("created database.db")
 PY
 ```
 
-쿼리 결과는 `results/query_XX.txt` 파일로 확인한다. 수정/삭제 예시는 트랜잭션 안에서 실행한 뒤 롤백하므로 반복 실행해도 원본 데이터가 유지된다.
+## Query Outputs
+
+Query results are stored in `results/query_XX.txt`. Update/delete examples are executed inside transactions and rolled back, so the sample data can be reused safely.
+
+## Design Notes
+
+- Foreign-key checks are explicitly enabled with `PRAGMA foreign_keys = ON`.
+- Sample data includes courses with zero enrollments to verify `LEFT JOIN` behavior.
+- Metrics cover total payment by course, average fee by category, and student counts by city.
+- The FK failure example is preserved to show how invalid references are rejected.
