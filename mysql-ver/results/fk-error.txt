@@ -1,0 +1,1 @@
+ERROR 1452 (23000) at line 1: Cannot add or update a child row: a foreign key constraint fails (`mission5_1_cafe_order_check`.`order_items`, CONSTRAINT `fk_order_items_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`))

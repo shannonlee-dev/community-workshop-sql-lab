@@ -1,0 +1,24 @@
+Tables_in_mission5_1_cafe_order_check
+customers
+menu_items
+order_items
+orders
+table_name	row_count
+customers	10
+menu_items	10
+orders	10
+order_items	12
+CONSTRAINT_NAME	TABLE_NAME	CONSTRAINT_TYPE
+PRIMARY	customers	PRIMARY KEY
+email	customers	UNIQUE
+PRIMARY	menu_items	PRIMARY KEY
+item_name	menu_items	UNIQUE
+fk_order_items_menu_item	order_items	FOREIGN KEY
+fk_order_items_order	order_items	FOREIGN KEY
+PRIMARY	order_items	PRIMARY KEY
+fk_orders_customer	orders	FOREIGN KEY
+PRIMARY	orders	PRIMARY KEY
+CONSTRAINT_NAME	TABLE_NAME	REFERENCED_TABLE_NAME
+fk_order_items_order	order_items	orders
+fk_order_items_menu_item	order_items	menu_items
+fk_orders_customer	orders	customers

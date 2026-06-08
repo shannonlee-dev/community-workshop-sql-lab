@@ -1,0 +1,121 @@
+customer_id	full_name	email	joined_on
+9	Oh Nari	nari.oh@example.com	2025-02-14
+6	Kang Yuna	yuna.kang@example.com	2025-02-01
+1	Kim Hana	hana.kim@example.com	2025-01-05
+item_id	item_name	unit_price
+1	Americano	4500.00
+2	Cafe Latte	5200.00
+4	Cold Brew	5500.00
+3	Vanilla Latte	5800.00
+order_id	customer_id	ordered_at	payment_method
+9	9	2025-03-05 12:25:00	card
+8	8	2025-03-04 15:10:00	mobile
+7	7	2025-03-04 09:45:00	cash
+6	6	2025-03-03 17:40:00	card
+5	5	2025-03-03 11:20:00	mobile
+item_id	item_name	category	unit_price
+9	Cheese Cake	dessert	7200.00
+order_id	full_name	ordered_at	order_status
+1	Kim Hana	2025-03-01 09:12:00	completed
+2	Lee Minjun	2025-03-01 10:35:00	completed
+3	Park Soyeon	2025-03-02 08:50:00	completed
+4	Choi Jisoo	2025-03-02 13:05:00	completed
+5	Jung Doyun	2025-03-03 11:20:00	completed
+6	Kang Yuna	2025-03-03 17:40:00	completed
+7	Yoon Seoha	2025-03-04 09:45:00	completed
+8	Han Jiho	2025-03-04 15:10:00	completed
+9	Oh Nari	2025-03-05 12:25:00	completed
+10	Shin Taewon	2025-03-05 18:15:00	pending
+order_item_id	order_id	item_name	quantity	unit_price_snapshot
+1	1	Americano	2	4500.00
+2	1	Plain Bagel	1	3900.00
+3	2	Cafe Latte	1	5200.00
+4	3	Vanilla Latte	1	5800.00
+5	4	Cheese Cake	2	7200.00
+6	5	Cold Brew	2	5500.00
+7	6	Green Tea Latte	1	5600.00
+8	7	Lemon Ade	1	6000.00
+9	8	Strawberry Smoothie	1	6800.00
+10	9	Chocolate Cookie	3	2800.00
+11	10	Americano	1	4500.00
+12	10	Cafe Latte	1	5200.00
+customer_id	full_name	order_count
+1	Kim Hana	1
+2	Lee Minjun	1
+3	Park Soyeon	1
+4	Choi Jisoo	1
+5	Jung Doyun	1
+6	Kang Yuna	1
+7	Yoon Seoha	1
+8	Han Jiho	1
+9	Oh Nari	1
+10	Shin Taewon	1
+order_id	full_name	order_total
+4	Choi Jisoo	14400.00
+1	Kim Hana	12900.00
+5	Jung Doyun	11000.00
+10	Shin Taewon	9700.00
+9	Oh Nari	8400.00
+8	Han Jiho	6800.00
+7	Yoon Seoha	6000.00
+3	Park Soyeon	5800.00
+6	Kang Yuna	5600.00
+2	Lee Minjun	5200.00
+payment_method	order_count
+card	6
+cash	2
+mobile	2
+category	category_sales
+coffee	40700.00
+dessert	22800.00
+smoothie	6800.00
+ade	6000.00
+tea	5600.00
+bakery	3900.00
+category	average_quantity
+dessert	2.5000
+coffee	1.3333
+bakery	1.0000
+tea	1.0000
+ade	1.0000
+smoothie	1.0000
+order_id	full_name	order_total
+4	Choi Jisoo	14400.00
+1	Kim Hana	12900.00
+5	Jung Doyun	11000.00
+10	Shin Taewon	9700.00
+Table	Non_unique	Key_name	Seq_in_index	Column_name	Collation	Cardinality	Sub_part	Packed	Null	Index_type	Comment	Index_comment	Visible	Expression
+orders	1	idx_orders_ordered_at	1	ordered_at	A	1	NULL	NULL		BTREE			YES	NULL
+order_id	order_status
+10	completed
+order_id	remaining_lines
+10	1
+customer_id	full_name
+1	Kim Hana
+10	Shin Taewon
+customer_id	full_name
+1	Kim Hana
+10	Shin Taewon
+order_date	order_count
+2025-03-01	2
+2025-03-02	2
+2025-03-03	2
+2025-03-04	2
+2025-03-05	2
+item_name	sold_quantity
+Americano	3
+Chocolate Cookie	3
+Cafe Latte	2
+Cheese Cake	2
+Cold Brew	2
+full_name	total_spent
+Choi Jisoo	14400.00
+Kim Hana	12900.00
+Jung Doyun	11000.00
+Shin Taewon	9700.00
+Oh Nari	8400.00
+Han Jiho	6800.00
+Yoon Seoha	6000.00
+Park Soyeon	5800.00
+Kang Yuna	5600.00
+Lee Minjun	5200.00
