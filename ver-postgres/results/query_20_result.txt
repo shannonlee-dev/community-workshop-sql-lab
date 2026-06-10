@@ -1,0 +1,19 @@
+-- Q20 [metric] Monthly paid claim trend for actuarial monitoring.
+
+-- Q20 [metric] Monthly paid claim trend for actuarial monitoring.
+-- PostgreSQL-specific syntax: DATE_TRUNC groups dates by month.
+SELECT DATE_TRUNC('month', claim_date)::date AS claim_month,
+       SUM(paid_amount) AS total_paid_claims
+FROM claims
+GROUP BY DATE_TRUNC('month', claim_date)::date
+ORDER BY claim_month;
+ claim_month | total_paid_claims 
+-------------+-------------------
+ 2024-03-01  |              0.00
+ 2024-04-01  |         360000.00
+ 2024-05-01  |        4800000.00
+ 2024-06-01  |         650000.00
+ 2024-07-01  |        7800000.00
+ 2024-08-01  |        6000000.00
+(6 rows)
+

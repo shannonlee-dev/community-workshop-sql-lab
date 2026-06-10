@@ -1,0 +1,22 @@
+-- Q11 [aggregate] Calculate average customer risk score by region.
+
+-- Q11 [aggregate] Calculate average customer risk score by region.
+SELECT region,
+       COUNT(*) AS customer_count,
+       AVG(risk_score) AS average_risk_score
+FROM customers
+GROUP BY region
+ORDER BY average_risk_score DESC;
+ region  | customer_count | average_risk_score  
+---------+----------------+---------------------
+ Ulsan   |              1 | 71.0000000000000000
+ Gwangju |              1 | 63.0000000000000000
+ Jeju    |              1 | 58.0000000000000000
+ Suwon   |              1 | 52.0000000000000000
+ Daegu   |              1 | 47.0000000000000000
+ Incheon |              1 | 39.0000000000000000
+ Busan   |              1 | 28.0000000000000000
+ Seoul   |              2 | 28.0000000000000000
+ Daejeon |              1 | 25.0000000000000000
+(9 rows)
+

@@ -1,0 +1,15 @@
+-- Q03 [basic] Find claims paid after June 2024.
+
+-- Q03 [basic] Find claims paid after June 2024.
+SELECT claim_number, claim_date, claim_type, paid_amount, claim_status
+FROM claims
+WHERE claim_date >= DATE '2024-06-01' AND paid_amount > 0
+ORDER BY claim_date, paid_amount DESC
+LIMIT 10;
+ claim_number  | claim_date |    claim_type    | paid_amount | claim_status 
+---------------+------------+------------------+-------------+--------------
+ CLM-2024-0006 | 2024-06-15 | lost baggage     |   650000.00 | paid
+ CLM-2024-0008 | 2024-07-19 | fire damage      |  7800000.00 | paid
+ CLM-2024-0009 | 2024-08-02 | cancer diagnosis |  6000000.00 | paid
+(3 rows)
+

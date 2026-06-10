@@ -1,0 +1,15 @@
+-- Q13 [aggregate] Count payment statuses and total paid premium.
+
+-- Q13 [aggregate] Count payment statuses and total paid premium.
+SELECT payment_status,
+       COUNT(*) AS payment_count,
+       SUM(paid_amount) AS total_paid_amount
+FROM premium_payments
+GROUP BY payment_status
+ORDER BY payment_count DESC, total_paid_amount DESC;
+ payment_status | payment_count | total_paid_amount 
+----------------+---------------+-------------------
+ paid           |             9 |        4920000.00
+ late           |             1 |         327500.00
+(2 rows)
+

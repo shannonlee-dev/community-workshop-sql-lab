@@ -1,0 +1,21 @@
+-- Q07 [join: left] Show every customer and any policy they hold.
+
+-- Q07 [join: left] Show every customer and any policy they hold.
+SELECT c.customer_code, c.full_name, p.policy_number, p.status
+FROM customers c
+LEFT JOIN policies p ON p.customer_id = c.customer_id
+ORDER BY c.customer_code, p.policy_number;
+ customer_code |  full_name   | policy_number | status 
+---------------+--------------+---------------+--------
+ CUS-0001      | Kim Minjun   | POL-2024-0001 | active
+ CUS-0002      | Lee Seoyeon  | POL-2024-0002 | active
+ CUS-0003      | Park Jiho    | POL-2024-0003 | active
+ CUS-0004      | Choi Hana    | POL-2024-0004 | active
+ CUS-0005      | Jung Hyunwoo | POL-2024-0005 | active
+ CUS-0006      | Kang Yuna    | POL-2024-0006 | active
+ CUS-0007      | Yoon Jisoo   | POL-2024-0007 | lapsed
+ CUS-0008      | Han Doyun    | POL-2024-0008 | active
+ CUS-0009      | Seo Ara      | POL-2024-0009 | active
+ CUS-0010      | Oh Taemin    | POL-2024-0010 | active
+(10 rows)
+

@@ -1,0 +1,22 @@
+-- Q09 [join: inner] Rank claim amounts by insurance line.
+
+-- Q09 [join: inner] Rank claim amounts by insurance line.
+SELECT pr.line_of_business, cl.claim_number, cl.claim_amount, cl.paid_amount
+FROM claims cl
+INNER JOIN policies p ON p.policy_id = cl.policy_id
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+ORDER BY pr.line_of_business, cl.claim_amount DESC;
+ line_of_business | claim_number  | claim_amount | paid_amount 
+------------------+---------------+--------------+-------------
+ auto             | CLM-2024-0007 |   4800000.00 |        0.00
+ auto             | CLM-2024-0003 |   2100000.00 |  1800000.00
+ health           | CLM-2024-0009 |   6000000.00 |  6000000.00
+ health           | CLM-2024-0004 |   3500000.00 |  3000000.00
+ health           | CLM-2024-0002 |    450000.00 |   360000.00
+ life             | CLM-2024-0001 |   5000000.00 |        0.00
+ life             | CLM-2024-0010 |   2300000.00 |        0.00
+ pension          | CLM-2024-0005 |   1200000.00 |        0.00
+ property         | CLM-2024-0008 |   9500000.00 |  7800000.00
+ travel           | CLM-2024-0006 |    700000.00 |   650000.00
+(10 rows)
+

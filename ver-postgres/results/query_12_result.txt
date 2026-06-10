@@ -1,0 +1,22 @@
+-- Q12 [aggregate] Calculate loss ratio by insurance line.
+
+-- Q12 [aggregate] Calculate loss ratio by insurance line.
+SELECT pr.line_of_business,
+       SUM(cl.paid_amount) AS total_paid_claims,
+       SUM(p.annual_premium) AS total_annual_premium,
+       ROUND(SUM(cl.paid_amount) / NULLIF(SUM(p.annual_premium), 0), 4) AS loss_ratio
+FROM claims cl
+INNER JOIN policies p ON p.policy_id = cl.policy_id
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+GROUP BY pr.line_of_business
+ORDER BY loss_ratio DESC;
+ line_of_business | total_paid_claims | total_annual_premium | loss_ratio 
+------------------+-------------------+----------------------+------------
+ property         |        7800000.00 |            275000.00 |    28.3636
+ health           |        9360000.00 |           1710000.00 |     5.4737
+ travel           |         650000.00 |            185000.00 |     3.5135
+ auto             |        1800000.00 |           1067000.00 |     1.6870
+ life             |              0.00 |           1078000.00 |     0.0000
+ pension          |              0.00 |           1260000.00 |     0.0000
+(6 rows)
+

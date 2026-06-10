@@ -1,0 +1,3 @@
+BEGIN
+psql:/home/shannon/__dev/sandbox/codex-harness/tasks/mission9/runtime/evidence/fk_violation_20260610T143517+0900.sql:8: ERROR:  insert or update on table "policies" violates foreign key constraint "policies_customer_id_fkey"
+DETAIL:  Key (customer_id)=(9999) is not present in table "customers".

@@ -1,0 +1,19 @@
+-- Q06 [join: inner] Show paid claims with customer and product context.
+
+-- Q06 [join: inner] Show paid claims with customer and product context.
+SELECT cl.claim_number, c.full_name, pr.line_of_business, cl.claim_type, cl.paid_amount
+FROM claims cl
+INNER JOIN policies p ON p.policy_id = cl.policy_id
+INNER JOIN customers c ON c.customer_id = p.customer_id
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+WHERE cl.claim_status = 'paid'
+ORDER BY cl.paid_amount DESC;
+ claim_number  |  full_name  | line_of_business |      claim_type      | paid_amount 
+---------------+-------------+------------------+----------------------+-------------
+ CLM-2024-0008 | Han Doyun   | property         | fire damage          |  7800000.00
+ CLM-2024-0009 | Seo Ara     | health           | cancer diagnosis     |  6000000.00
+ CLM-2024-0003 | Park Jiho   | auto             | vehicle collision    |  1800000.00
+ CLM-2024-0006 | Kang Yuna   | travel           | lost baggage         |   650000.00
+ CLM-2024-0002 | Lee Seoyeon | health           | outpatient treatment |   360000.00
+(5 rows)
+

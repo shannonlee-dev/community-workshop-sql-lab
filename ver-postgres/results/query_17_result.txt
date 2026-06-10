@@ -1,0 +1,17 @@
+-- Q17 [update] Test a status update without permanently changing sample data.
+
+-- Q17 [update] Test a status update without permanently changing sample data.
+BEGIN;
+BEGIN
+UPDATE policies
+SET status = 'lapsed'
+WHERE policy_number = 'POL-2024-0003'
+RETURNING policy_number, status;
+ policy_number | status 
+---------------+--------
+ POL-2024-0003 | lapsed
+(1 row)
+
+UPDATE 1
+ROLLBACK;
+ROLLBACK

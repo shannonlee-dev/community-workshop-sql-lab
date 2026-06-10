@@ -1,0 +1,22 @@
+-- Q05 [join: inner] Join policies to customers and products for underwriting review.
+
+-- Q05 [join: inner] Join policies to customers and products for underwriting review.
+SELECT p.policy_number, c.full_name, pr.product_name, p.insured_amount, p.annual_premium
+FROM policies p
+INNER JOIN customers c ON c.customer_id = p.customer_id
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+ORDER BY p.policy_number;
+ policy_number |  full_name   |        product_name        | insured_amount | annual_premium 
+---------------+--------------+----------------------------+----------------+----------------
+ POL-2024-0001 | Kim Minjun   | Term Life Secure 10        |   100000000.00 |      438000.00
+ POL-2024-0002 | Lee Seoyeon  | Health Standard Care       |    30000000.00 |      545000.00
+ POL-2024-0003 | Park Jiho    | Auto Basic Cover           |    20000000.00 |      412000.00
+ POL-2024-0004 | Choi Hana    | Health Premium Care        |    50000000.00 |      845000.00
+ POL-2024-0005 | Jung Hyunwoo | Retirement Pension Builder |   150000000.00 |     1260000.00
+ POL-2024-0006 | Kang Yuna    | Annual Travel Protect      |    10000000.00 |      185000.00
+ POL-2024-0007 | Yoon Jisoo   | Auto Plus Cover            |    30000000.00 |      655000.00
+ POL-2024-0008 | Han Doyun    | Home Fire Guard            |    80000000.00 |      275000.00
+ POL-2024-0009 | Seo Ara      | Cancer Care Rider          |    40000000.00 |      320000.00
+ POL-2024-0010 | Oh Taemin    | Term Life Secure 20        |   120000000.00 |      640000.00
+(10 rows)
+

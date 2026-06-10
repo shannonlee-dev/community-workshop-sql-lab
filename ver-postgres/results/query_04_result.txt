@@ -1,0 +1,16 @@
+-- Q04 [basic] Review products with base annual premium below 400,000 KRW.
+
+-- Q04 [basic] Review products with base annual premium below 400,000 KRW.
+SELECT product_code, product_name, line_of_business, base_annual_premium
+FROM insurance_products
+WHERE base_annual_premium < 400000
+ORDER BY base_annual_premium ASC
+LIMIT 10;
+  product_code  |     product_name      | line_of_business | base_annual_premium 
+----------------+-----------------------+------------------+---------------------
+ TRAVEL-ANNUAL  | Annual Travel Protect | travel           |           180000.00
+ HOME-FIRE-01   | Home Fire Guard       | property         |           250000.00
+ CANCER-CARE-01 | Cancer Care Rider     | health           |           310000.00
+ AUTO-BASIC-01  | Auto Basic Cover      | auto             |           390000.00
+(4 rows)
+

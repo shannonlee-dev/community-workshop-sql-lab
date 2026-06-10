@@ -1,0 +1,35 @@
+ check_name  | actual_count 
+-------------+--------------
+ table_count |            5
+
+    check_name     | actual_count 
+-------------------+--------------
+ primary_key_count |            5
+
+    check_name     | actual_count 
+-------------------+--------------
+ foreign_key_count |            4
+
+       check_name        | actual_count 
+-------------------------+--------------
+ unique_constraint_count |            4
+
+      check_name       | actual_count 
+-----------------------+--------------
+ not_null_column_count |           36
+
+     table_name     | row_count 
+--------------------+-----------
+ claims             |        10
+ customers          |        10
+ insurance_products |        10
+ policies           |        10
+ premium_payments   |        10
+
+ policy_number | customer_code |  product_code  
+---------------+---------------+----------------
+ POL-2024-0001 | CUS-0001      | TERM-LIFE-01
+ POL-2024-0002 | CUS-0002      | HEALTH-STD-01
+ POL-2024-0003 | CUS-0003      | AUTO-BASIC-01
+ POL-2024-0004 | CUS-0004      | HEALTH-PREM-01
+ POL-2024-0005 | CUS-0005      | PENSION-RET-01

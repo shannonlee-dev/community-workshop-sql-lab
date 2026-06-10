@@ -1,0 +1,21 @@
+-- Q16 [bonus: join-vs-subquery, subquery version] Same requirement as Q15 using a subquery.
+
+-- Q16 [bonus: join-vs-subquery, subquery version] Same requirement as Q15 using a subquery.
+SELECT c.customer_code, c.full_name
+FROM customers c
+WHERE c.customer_id IN (
+    SELECT p.customer_id
+    FROM policies p
+    WHERE p.policy_id IN (
+        SELECT cl.policy_id
+        FROM claims cl
+        WHERE cl.paid_amount > 3000000
+    )
+)
+ORDER BY c.customer_code;
+ customer_code | full_name 
+---------------+-----------
+ CUS-0008      | Han Doyun
+ CUS-0009      | Seo Ara
+(2 rows)
+

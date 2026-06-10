@@ -1,0 +1,6 @@
+-- Q19 [index] PostgreSQL B-tree index for frequent actuarial loss-ratio grouping by claim date.
+
+-- Q19 [index] PostgreSQL B-tree index for frequent actuarial loss-ratio grouping by claim date.
+-- PostgreSQL-specific syntax: CREATE INDEX IF NOT EXISTS avoids an error when rerunning the script.
+CREATE INDEX IF NOT EXISTS idx_claims_claim_date ON claims (claim_date);
+CREATE INDEX

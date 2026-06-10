@@ -1,0 +1,15 @@
+-- Q01 [basic] Find active policies with high annual premiums.
+
+-- Q01 [basic] Find active policies with high annual premiums.
+SELECT policy_number, annual_premium, status
+FROM policies
+WHERE status = 'active' AND annual_premium >= 600000
+ORDER BY annual_premium DESC
+LIMIT 5;
+ policy_number | annual_premium | status 
+---------------+----------------+--------
+ POL-2024-0005 |     1260000.00 | active
+ POL-2024-0004 |      845000.00 | active
+ POL-2024-0010 |      640000.00 | active
+(3 rows)
+

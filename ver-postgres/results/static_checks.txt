@@ -1,0 +1,14 @@
+query_count_at_least_15: PASS
+basic_queries_at_least_4: PASS
+join_queries_at_least_4: PASS
+inner_join_at_least_2: PASS
+left_join_at_least_1: PASS
+aggregate_queries_at_least_3: PASS
+uses_count_sum_avg_and_group_by: PASS
+subquery_present: PASS
+update_and_delete_present: PASS
+create_index_present: PASS
+postgresql_specific_comments_present: PASS
+result_files_at_least_15: PASS
+no_backend_framework_files: PASS
+no_view_procedure_trigger_definitions: PASS

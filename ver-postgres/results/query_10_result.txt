@@ -1,0 +1,20 @@
+-- Q10 [aggregate] Count policies and sum annual premium by line of business.
+
+-- Q10 [aggregate] Count policies and sum annual premium by line of business.
+SELECT pr.line_of_business,
+       COUNT(*) AS policy_count,
+       SUM(p.annual_premium) AS total_annual_premium
+FROM policies p
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+GROUP BY pr.line_of_business
+ORDER BY total_annual_premium DESC;
+ line_of_business | policy_count | total_annual_premium 
+------------------+--------------+----------------------
+ health           |            3 |           1710000.00
+ pension          |            1 |           1260000.00
+ life             |            2 |           1078000.00
+ auto             |            2 |           1067000.00
+ property         |            1 |            275000.00
+ travel           |            1 |            185000.00
+(6 rows)
+

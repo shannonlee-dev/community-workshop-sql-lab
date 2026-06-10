@@ -1,0 +1,15 @@
+-- Q14 [subquery] Find policies whose annual premium is above the portfolio average.
+
+-- Q14 [subquery] Find policies whose annual premium is above the portfolio average.
+SELECT policy_number, annual_premium
+FROM policies
+WHERE annual_premium > (SELECT AVG(annual_premium) FROM policies)
+ORDER BY annual_premium DESC;
+ policy_number | annual_premium 
+---------------+----------------
+ POL-2024-0005 |     1260000.00
+ POL-2024-0004 |      845000.00
+ POL-2024-0007 |      655000.00
+ POL-2024-0010 |      640000.00
+(4 rows)
+

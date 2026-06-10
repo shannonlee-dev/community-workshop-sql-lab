@@ -1,0 +1,16 @@
+-- Q18 [delete] Test claim deletion without permanently changing sample data.
+
+-- Q18 [delete] Test claim deletion without permanently changing sample data.
+BEGIN;
+BEGIN
+DELETE FROM claims
+WHERE claim_number = 'CLM-2024-0001'
+RETURNING claim_number, claim_status;
+ claim_number  | claim_status 
+---------------+--------------
+ CLM-2024-0001 | open
+(1 row)
+
+DELETE 1
+ROLLBACK;
+ROLLBACK

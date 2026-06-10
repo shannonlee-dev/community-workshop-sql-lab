@@ -1,0 +1,16 @@
+-- Q02 [basic] List high-risk customers by score.
+
+-- Q02 [basic] List high-risk customers by score.
+SELECT customer_code, full_name, region, occupation, risk_score
+FROM customers
+WHERE risk_score >= 50
+ORDER BY risk_score DESC, full_name
+LIMIT 10;
+ customer_code |  full_name   | region  |   occupation    | risk_score 
+---------------+--------------+---------+-----------------+------------
+ CUS-0007      | Yoon Jisoo   | Ulsan   | factory manager |         71
+ CUS-0005      | Jung Hyunwoo | Gwangju | self-employed   |         63
+ CUS-0008      | Han Doyun    | Jeju    | pilot           |         58
+ CUS-0010      | Oh Taemin    | Suwon   | sales manager   |         52
+(4 rows)
+

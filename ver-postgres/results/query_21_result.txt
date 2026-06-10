@@ -1,0 +1,18 @@
+-- Q21 [metric] Top products by earned premium proxy.
+
+-- Q21 [metric] Top products by earned premium proxy.
+SELECT pr.product_code, pr.product_name, SUM(p.annual_premium) AS total_annual_premium
+FROM policies p
+INNER JOIN insurance_products pr ON pr.product_id = p.product_id
+GROUP BY pr.product_code, pr.product_name
+ORDER BY total_annual_premium DESC
+LIMIT 5;
+  product_code  |        product_name        | total_annual_premium 
+----------------+----------------------------+----------------------
+ PENSION-RET-01 | Retirement Pension Builder |           1260000.00
+ HEALTH-PREM-01 | Health Premium Care        |            845000.00
+ AUTO-PLUS-01   | Auto Plus Cover            |            655000.00
+ TERM-LIFE-02   | Term Life Secure 20        |            640000.00
+ HEALTH-STD-01  | Health Standard Care       |            545000.00
+(5 rows)
+
