@@ -83,12 +83,19 @@ GROUP BY region
 ORDER BY average_risk_score DESC;
 
 -- Q12 [aggregate] Calculate loss ratio by insurance line.
+-- Aggregate claims per policy first so each premium is counted once, including
+-- policies with no claims.
+WITH claims_by_policy AS (
+    SELECT policy_id, SUM(paid_amount) AS total_paid_claims
+    FROM claims
+    GROUP BY policy_id
+)
 SELECT pr.line_of_business,
-       SUM(cl.paid_amount) AS total_paid_claims,
+       SUM(COALESCE(cl.total_paid_claims, 0)) AS total_paid_claims,
        SUM(p.annual_premium) AS total_annual_premium,
-       ROUND(SUM(cl.paid_amount) / NULLIF(SUM(p.annual_premium), 0), 4) AS loss_ratio
-FROM claims cl
-INNER JOIN policies p ON p.policy_id = cl.policy_id
+       ROUND(SUM(COALESCE(cl.total_paid_claims, 0)) / NULLIF(SUM(p.annual_premium), 0), 4) AS loss_ratio
+FROM policies p
+LEFT JOIN claims_by_policy cl ON cl.policy_id = p.policy_id
 INNER JOIN insurance_products pr ON pr.product_id = p.product_id
 GROUP BY pr.line_of_business
 ORDER BY loss_ratio DESC;
@@ -165,14 +172,19 @@ ORDER BY total_annual_premium DESC
 LIMIT 5;
 
 -- Q22 [metric] Customers with the highest paid-claim-to-premium ratio.
+WITH claims_by_policy AS (
+    SELECT policy_id, SUM(paid_amount) AS total_paid_claims
+    FROM claims
+    GROUP BY policy_id
+)
 SELECT c.customer_code,
        c.full_name,
-       SUM(cl.paid_amount) AS total_paid_claims,
+       SUM(COALESCE(cl.total_paid_claims, 0)) AS total_paid_claims,
        SUM(p.annual_premium) AS total_annual_premium,
-       ROUND(SUM(cl.paid_amount) / NULLIF(SUM(p.annual_premium), 0), 4) AS paid_claim_to_premium_ratio
+       ROUND(SUM(COALESCE(cl.total_paid_claims, 0)) / NULLIF(SUM(p.annual_premium), 0), 4) AS paid_claim_to_premium_ratio
 FROM customers c
 INNER JOIN policies p ON p.customer_id = c.customer_id
-INNER JOIN claims cl ON cl.policy_id = p.policy_id
+LEFT JOIN claims_by_policy cl ON cl.policy_id = p.policy_id
 GROUP BY c.customer_code, c.full_name
-ORDER BY paid_claim_to_premium_ratio DESC
+ORDER BY paid_claim_to_premium_ratio DESC, c.customer_code
 LIMIT 5;
