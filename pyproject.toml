@@ -10,7 +10,7 @@ dependencies = []
 package = false
 
 [dependency-groups]
-dev = ["pytest>=8,<9", "ruff"]
+dev = ["pytest>=8,<10", "ruff"]
 
 [tool.ruff]
 line-length = 88
