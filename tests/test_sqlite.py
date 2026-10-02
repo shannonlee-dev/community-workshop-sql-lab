@@ -84,3 +84,42 @@ def test_existing_database_is_preserved(reproduced):
     )
     assert retry.returncode != 0
     assert db.read_bytes() == before
+
+
+def query_result(results, number):
+    lines = (results / f"query_{number:02d}.txt").read_text().splitlines()[2:]
+    return list(csv.DictReader(lines, delimiter="\t"))
+
+
+def test_course_aggregates_preserve_empty_courses_and_payment_totals(reproduced):
+    with (ROOT / "tests/fixtures/sqlite-course-metrics.csv").open() as source:
+        expected = {row["title"]: row for row in csv.DictReader(source)}
+    enrollment_counts = {
+        row["title"]: row["enrollment_count"] for row in query_result(reproduced[1], 8)
+    }
+    totals = {
+        row["title"]: (row["paid_count"], row["total_paid"])
+        for row in query_result(reproduced[1], 10)
+    }
+    assert enrollment_counts == {
+        title: row["enrollment_count"] for title, row in expected.items()
+    }
+    assert totals == {
+        title: (row["paid_count"], row["total_paid"]) for title, row in expected.items()
+    }
+
+
+def test_join_and_subquery_match_expected_paid_active_enrollments(reproduced):
+    with (ROOT / "tests/fixtures/sqlite-paid-enrollments.csv").open() as source:
+        expected = {tuple(row.values()) for row in csv.DictReader(source)}
+    joined = {tuple(row.values()) for row in query_result(reproduced[1], 13)}
+    subqueried = {tuple(row.values()) for row in query_result(reproduced[1], 14)}
+    assert joined == expected
+    assert subqueried == expected
+
+
+def test_title_search_index_is_created(connection):
+    indices = connection.execute("PRAGMA index_list(courses)").fetchall()
+    assert "idx_courses_title" in {row[1] for row in indices}
+    columns = connection.execute("PRAGMA index_info(idx_courses_title)").fetchall()
+    assert [row[2] for row in columns] == ["title"]

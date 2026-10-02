@@ -67,9 +67,9 @@ make test
 make smoke
 ```
 
-임시 디렉토리에서 SQLite 생성·쿼리 실행·테이블 행 수·외래키 위반 차단·변경 롤백을 확인합니다. MySQL·PostgreSQL 검증 결과와 SQLite 검증 결과를 구분합니다.
+임시 디렉토리에서 SQLite 생성·쿼리 실행·테이블 행 수·외래키 위반 차단·변경 롤백을 확인합니다. 기준 fixture로 강좌별 집계, 무신청 강좌 보존, JOIN·서브쿼리 결과, 검색 인덱스도 검증합니다. PostgreSQL Q12·Q22의 공통 집계 SQL은 일대다 청구 fixture를 메모리 SQLite에서 실행하여 보험료 중복·무청구 계약 누락을 검사합니다. 실제 MySQL·PostgreSQL 서버 검증은 수행하지 않습니다.
 
-`make check`는 정적 분석·포맷·문서 검사를, `make test`는 `uv run --frozen pytest -q`로 전체 동작 검사를 실행합니다. `make smoke`는 같은 테스트 중 `smoke` 마커가 붙은 실행 확인만 선택합니다(`uv run --frozen pytest -q -m smoke`). 테스트는 `test_*.py`와 fixture로 구성하며 임시 DB·파일과 모의 요청을 사용합니다.
+`make check`는 정적 분석·포맷·문서 검사를, `make test`는 `uv run --frozen pytest -q`로 위 회귀 테스트를 실행합니다. `make smoke`는 SQLite 재현과 결과 검증을 선택합니다(`uv run --frozen pytest -q -m smoke`). 테스트는 임시 DB·파일과 독립적인 기준 fixture를 사용하며 외부 DB에 접속하지 않습니다.
 
 ## 분석 보고서
 

@@ -37,4 +37,4 @@ psql -X -v ON_ERROR_STOP=1 -U lab_user -d workshop_postgres -f sql/postgres/quer
 
 ## 증빙 관리
 
-`evidence/`의 결과는 과거 기록입니다. 현재 자동 검증은 SQLite에 한정하며 MySQL·PostgreSQL 서버 실행을 포함하지 않습니다. 새 결과는 `.runtime/`에 수집합니다. SQLite의 기준 행 수는 `tests/fixtures/`와 비교하고, 다른 엔진의 통합 결과는 `evidence/`를 참고합니다. 엔진별 해석은 `docs/reports/`에 있습니다.
+`evidence/`의 결과는 과거 기록입니다. 현재 자동 검증은 SQLite 재현과 메모리 SQLite에서 실행 가능한 PostgreSQL Q12·Q22 공통 집계 부분에 한정하며 MySQL·PostgreSQL 서버 실행을 포함하지 않습니다. 새 결과는 `.runtime/`에 수집합니다. SQLite의 기준 행 수·집계·결제 신청 결과는 `tests/fixtures/`와 비교하고, 다른 엔진의 통합 결과는 `evidence/`를 참고합니다. 엔진별 해석은 `docs/reports/`에 있습니다.

@@ -19,4 +19,4 @@ VALUES (9999, 1, 1, 4500.00, 'invalid order');
 2. Q19: 판매 수량이 많은 메뉴
 3. Q20: 고객별 구매 총액
 
-기존 쿼리 출력은 [결과 기록](../../evidence/mysql/query-results.txt), 실행 환경은 [메타데이터](../../evidence/mysql/metadata.txt)에 보존합니다.
+기존 쿼리 출력은 [결과 기록](../../evidence/mysql/query-results.txt), 테이블·행 수·키 제약은 [스키마 메타데이터](../../evidence/mysql/metadata.txt)에 보존합니다. 이 메타데이터에는 서버 버전·실행 시각·클라이언트 환경이 없으며 현재 서버에서 재실행한 증거가 아닙니다. 새 실행에서는 해당 환경 정보를 별도로 기록합니다.
