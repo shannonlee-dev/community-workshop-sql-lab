@@ -1,0 +1,25 @@
+[project]
+name = "community-workshop-sql-lab"
+version = "0.1.0"
+description = "관계형 데이터 모델과 SQL 실습"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = ["pytest>=8,<9", "ruff"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib --strict-markers"
+markers = ["smoke: 외부 서비스·실제 데이터 변경 없이 주요 실행 경로 검증"]

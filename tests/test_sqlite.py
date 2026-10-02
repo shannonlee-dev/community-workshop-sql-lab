@@ -1,0 +1,86 @@
+"""SQLite 재현 결과와 데이터 무결성을 pytest로 검증한다."""
+
+import csv
+import sqlite3
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+pytestmark = pytest.mark.smoke
+
+
+@pytest.fixture
+def reproduced(tmp_path):
+    db, results = tmp_path / "workshop.db", tmp_path / "results"
+    command = [
+        sys.executable,
+        str(ROOT / "scripts/reproduce.py"),
+        "--output",
+        str(db),
+        "--results",
+        str(results),
+    ]
+    result = subprocess.run(
+        command, cwd=ROOT, capture_output=True, text=True, timeout=30
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    return db, results, command
+
+
+@pytest.fixture
+def connection(reproduced):
+    with sqlite3.connect(reproduced[0]) as conn:
+        conn.execute("PRAGMA foreign_keys = ON")
+        yield conn
+
+
+def test_all_query_results_are_written(reproduced):
+    assert len(list(reproduced[1].glob("query_*.txt"))) == 17
+
+
+def test_sample_row_counts_and_foreign_keys(connection):
+    with (ROOT / "tests/fixtures/sqlite-table-counts.csv").open() as source:
+        for row in csv.DictReader(source):
+            table = row["table_name"]
+            assert table in {
+                "instructors",
+                "students",
+                "courses",
+                "enrollments",
+                "payments",
+                "attendance",
+            }
+            count = connection.execute(f'SELECT COUNT(*) FROM "{table}"').fetchone()[0]
+            assert count == int(row["row_count"]), (table, count)
+    assert connection.execute("PRAGMA foreign_key_check").fetchall() == []
+
+
+def test_modification_examples_are_rolled_back(connection):
+    with sqlite3.connect(":memory:") as original:
+        original.executescript((ROOT / "sql/sqlite/schema.sql").read_text())
+        original.executescript((ROOT / "sql/sqlite/seed.sql").read_text())
+        query = "SELECT * FROM enrollments ORDER BY enrollment_id"
+        assert (
+            connection.execute(query).fetchall() == original.execute(query).fetchall()
+        )
+
+
+def test_invalid_foreign_key_is_rejected(connection):
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            "INSERT INTO enrollments VALUES (999, 999, 1, '2024-05-30', 'active', 0)"
+        )
+    connection.rollback()
+
+
+def test_existing_database_is_preserved(reproduced):
+    db, _, command = reproduced
+    before = db.read_bytes()
+    retry = subprocess.run(
+        command, cwd=ROOT, capture_output=True, text=True, timeout=30
+    )
+    assert retry.returncode != 0
+    assert db.read_bytes() == before
